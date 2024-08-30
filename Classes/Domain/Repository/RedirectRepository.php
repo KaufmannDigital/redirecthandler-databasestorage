@@ -59,7 +59,7 @@ class RedirectRepository extends Repository
 
         if ($fallback === true) {
             $constraints = $query->logicalAnd(
-                $query->equals('sourceUriPathHash', md5(trim($sourceUriPath, '/'))),
+                $query->equals('sourceUriPathHash', md5(urldecode(trim($sourceUriPath, '/')))),
                 $query->logicalOr(
                     $query->equals('host', $host),
                     $query->equals('host', null)
@@ -67,7 +67,7 @@ class RedirectRepository extends Repository
             );
         } else {
             $constraints = $query->logicalAnd(
-                $query->equals('sourceUriPathHash', md5(trim($sourceUriPath, '/'))),
+                $query->equals('sourceUriPathHash', md5(urldecode(trim($sourceUriPath, '/')))),
                 $query->equals('host', $host)
             );
         }
